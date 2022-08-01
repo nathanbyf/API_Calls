@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Fetch an image test</title>
+  </head>
+  <body>
+    <h1>Fetch Fruit</h1>
+    <img src="" id="rainbow" width="480" />
+    <script>
+      console.log('about to fetch multiple images');
+      const images = ['oranges.jpeg', 'lemons.jpg'];
+
+      getImages()
+        .then(response => {
+          console.log('yay');
+        })
+        .catch(error => {
+          console.log('error!');
+          console.error(error);
+        });
+
+      async function getImages() {
+        for (let i of images) {
+            const response = await fetch(i);
+            console.log(response);
+            const blob = await response.blob();
+            /*document.getElementById('rainbow').src = URL.createObjectURL(blob);*/
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(blob);
+            img.width = '200';
+            document.body.append(img);
+        }
+      }
+    </script>
+  </body>
+</html>
